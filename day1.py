@@ -32,7 +32,6 @@ for idx,i in enumerate(numsl):
 #Evaluate
 res = 0
 for line in data:
-    print(line)
     minpos = len(line)
     curmin = -1
     maxpos = 0
