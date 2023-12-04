@@ -5,7 +5,7 @@ data = data.split('\n')
 # a list of winning numbers and then a list of numbers you have
 for i, line in enumerate(data):
     line = line.split(': ')
-    line[0] = int(line[0].split(' ')[-1])
+    line[0] = int(line[0].split()[-1])
     line[1] = line[1].split('|')
     line[1][0] = [int(j) for j in line[1][0].split(' ') if j != '']
     line[1][1] = [int(j) for j in line[1][1].split(' ') if j != '']
