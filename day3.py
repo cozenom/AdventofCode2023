@@ -48,10 +48,11 @@ for y, row in enumerate(data):
             resa.append(num)
 
 print('Part 1: ', res)
-# print(resa)
 
 
 # Part 2
+# A gear is any * symbol that is adjacent to exactly two part numbers. Its gear ratio is the result of multiplying
+# those two numbers together.
 data = open("day3.txt").read().strip()
 data = data.split('\n')
 
