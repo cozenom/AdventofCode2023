@@ -1,5 +1,5 @@
 data = open("day5.txt").read().strip()
-data = open("test.txt").read()
+#data = open("test.txt").read()
 data = data.split('\n\n')
 
 for i, row in enumerate(data):
@@ -40,20 +40,23 @@ def getOverlap(input, sourcerange):
     # Range
     x1, x2, y1, y2 = input[0], input[-1] + 1, sourcerange[0], sourcerange[-1] + 1
     r = [y1 < x1, y1 < x2, y2 < x1, y2 < x2]
-    print(r)
     res = []
     if sum(r) == 1:
         # R
-        res = [range(x1, y1), range(y1, x2), 1]
+        if y1>x1: res = [range(x1, y1), range(y1, x2), 1]
+        elif y1==x1: [range(y1, x2), 0]
     elif sum(r) == 2:
         # Both
         if r[1] and r[3]:
+            # X overlap Y
             res = [range(x1,y1), range(y1,y2), range(y2,x2),1]
         if r[0] and r[1]:
+            # Y overlap X
             res = [input, 0]
     elif sum(r) == 3:
         # L
-        res = [range(x1, y2), range(y2, x2), 0]
+        if y2<x2:res = [range(x1, y2), range(y2, x2), 0]
+        elif y2==x2: [range(x1, y2), 0]
     else:
         # Neither
         res = [input]
@@ -83,6 +86,9 @@ for mapping in data[1:]:
         sourcerange = range(source, source + rlength)
         topop = []
         for i in range(len(pre)):
+            if len(pre[i])==0:
+                topop.append(i)
+                continue
             print(i, pre[i], sourcerange)
             o = getOverlap(pre[i], sourcerange)
             if len(o) > 1:
@@ -91,14 +97,19 @@ for mapping in data[1:]:
                 p = o[-1]
                 res = o[:-1]
                 # res[p] = range(dest - source + res[p][0], dest + (res[p][1] - res[p][0]))
-                print(pre, post)
-                print(dest-source, pre[i][0], pre[i][1])
+                print(pre, post,dest-source,pre[i][0], pre[i][1])
                 [pre.append(res[b]) if b != p else post.append(
-                    range(dest-source+pre[i][0], dest - source + pre[i][-1])) for b in range(len(res))]
-                print(pre, post)
+                    range(dest-source+res[b][0], dest - source + res[b][-1]+1)) for b in range(len(res))]
                 topop.append(i)
+                print(pre, post, topop)
+
         for i in sorted(topop, reverse=True): pre.pop(i)
         print('pp', pre, post, topop)
 
     start = pre + post
 print(start)
+mins = []
+for i in start:
+    if len(i)>0: mins.append(i[0])
+
+print(min(mins))
