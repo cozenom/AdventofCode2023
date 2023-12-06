@@ -20,7 +20,6 @@ for i, row in enumerate(data):
 start = data[0][1]
 for map in data[1:]:
     pre = dict([(i, i) for i in start])
-    post = []
     ranges = map[1]
     # the destination range start, the source range start, and the range length.
     for r in ranges:
@@ -39,24 +38,22 @@ print('Part 1: ', min(start))
 
 def getOverlap(input, sourcerange):
     # Range
-    x1, x2, y1, y2 = input[0], input[-1]+1, sourcerange[0], sourcerange[-1]+1
-    r = [y1<x1, y1<x2, y2<x1, y2<x2]
+    x1, x2, y1, y2 = input[0], input[-1] + 1, sourcerange[0], sourcerange[-1] + 1
+    r = [y1 < x1, y1 < x2, y2 < x1, y2 < x2]
+    print(r)
     res = []
-    if sum(r)==1:
+    if sum(r) == 1:
         # R
-        pos = input.index(y1)
-        res = [range(x1, y1), range(y1,x2),1]
-    elif sum(r)==2:
+        res = [range(x1, y1), range(y1, x2), 1]
+    elif sum(r) == 2:
         # Both
         if r[1] and r[3]:
-            pos, pos1 = input.index(y1), input.index(y2)
             res = [range(x1,y1), range(y1,y2), range(y2,x2),1]
         if r[0] and r[1]:
             res = [input, 0]
-    elif sum(r)==3:
+    elif sum(r) == 3:
         # L
-        pos = input.index(y2)
-        res = [range(x1,y2), range(y2,x2),0]
+        res = [range(x1, y2), range(y2, x2), 0]
     else:
         # Neither
         res = [input]
@@ -74,24 +71,34 @@ for pair in start:
     ranges.append(range(pair[0], pair[0] + pair[1]))
 
 start = ranges
+print(start)
 for mapping in data[1:]:
-    pre = dict([(i, i) for i in start])
-    ranges = mapping[1]
+    pre = start
     post = []
+    ranges = mapping[1]
     # the destination range start, the source range start, and the range length.
-    print(mapping[0], ranges)
+    print(mapping, pre)
     for r in ranges:
         dest, source, rlength = r[0], r[1], r[2]
         sourcerange = range(source, source + rlength)
-        for i in pre.keys():
-            o = getOverlap(i, sourcerange)
-            if len(o)>1:
+        topop = []
+        for i in range(len(pre)):
+            print(i, pre[i], sourcerange)
+            o = getOverlap(pre[i], sourcerange)
+            if len(o) > 1:
                 # Overlapped
-                print(sourcerange, i, o)
+                print('o', o)
                 p = o[-1]
                 res = o[:-1]
-                res[p] = range(dest - source + res[p][0], dest + (res[p][1] - res[p][0]))
-                print(res)
+                # res[p] = range(dest - source + res[p][0], dest + (res[p][1] - res[p][0]))
+                print(pre, post)
+                print(dest-source, pre[i][0], pre[i][1])
+                [pre.append(res[b]) if b != p else post.append(
+                    range(dest-source+pre[i][0], dest - source + pre[i][-1])) for b in range(len(res))]
+                print(pre, post)
+                topop.append(i)
+        for i in sorted(topop, reverse=True): pre.pop(i)
+        print('pp', pre, post, topop)
 
-
-    start = list(pre.values())
+    start = pre + post
+print(start)
