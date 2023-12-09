@@ -42,15 +42,17 @@ for start in starts:
     while not cycle:
         visited.append(current)
         instr = instructions[steps % len(instructions)]
-        if instr == 'L':current = datadict[current][0]
-        else: current = datadict[current][1]
+        if instr == 'L':
+            current = datadict[current][0]
+        else:
+            current = datadict[current][1]
         steps += 1
-        if current[-1]=='Z':
+        if current[-1] == 'Z':
             zpos = steps
-        if current == datadict[start][0] and zpos!=-1:
+        if current == datadict[start][0] and zpos != -1:
             cycle = True
     cycles.append([steps, zpos, visited.index(current)])
 
-import math # lazy
+import math  # lazy
 
-print('Part 2: ',math.lcm(*[i[1] for i in cycles]))
+print('Part 2: ', math.lcm(*[i[1] for i in cycles]))
