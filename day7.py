@@ -1,6 +1,5 @@
 data = open("day7.txt").read().strip()
 
-
 data = [i.split(' ') for i in data.split('\n')]
 
 vals = {'A': 14, 'K': 13, 'Q': 12, 'J': 11, 'T': 10}
@@ -24,12 +23,10 @@ def getHandVals(data, vals=vals, part=1):
         if part == 2:
             Jcount = row[0].count('J')
             jlesscounts = []
-            if Jcount > 0 and Jcount <5:
-                jless = sorted([c for c in hand if c!='J'], key=lambda c: vals[c], reverse=True)
+            if 0 < Jcount < 5:
+                jless = sorted([c for c in hand if c != 'J'], key=lambda c: vals[c], reverse=True)
                 jlesscounts = [jless.count(i) for i in jless]
                 m = Jcount + max(jlesscounts)
-
-
 
         if m == 5:
             # Five of a kind
@@ -38,7 +35,7 @@ def getHandVals(data, vals=vals, part=1):
             #  Four of a kind
             res = [6]
         elif m == 3:
-            if part==1:
+            if part == 1:
                 if 2 in counts:
                     # Full house
                     res = [5]
@@ -46,8 +43,10 @@ def getHandVals(data, vals=vals, part=1):
                     # Three of a kind
                     res = [4]
             else:
-                if set(jlesscounts)==set([2]) or sorted(counts)==[2,2,3,3,3]:res=[5]
-                else:res=[4]
+                if set(jlesscounts) == set([2]) or sorted(counts) == [2, 2, 3, 3, 3]:
+                    res = [5]
+                else:
+                    res = [4]
         elif m == 2:
             if counts.count(2) == 4:
                 # Two pair
@@ -67,8 +66,8 @@ def getHandVals(data, vals=vals, part=1):
 
 processed = getHandVals(data)
 # V useful https://stackoverflow.com/questions/4233476/sort-a-list-by-multiple-attributes
-processed = sorted(processed, key=lambda processed: (
-processed[0], processed[1], processed[2], processed[3], processed[4], processed[5]), reverse=True)
+processed = sorted(processed, key=lambda p: (
+    p[0], p[1], p[2], p[3], p[4], p[5]), reverse=True)
 res = 0
 for i, row in enumerate(processed):
     res += row[-1][-1] * (len(processed) - i)
@@ -77,8 +76,8 @@ print('Part 1: ', res)
 # Part 2
 vals['J'] = 1
 processed = getHandVals(data, vals, 2)
-processed = sorted(processed, key=lambda processed: (
-processed[0], processed[1], processed[2], processed[3], processed[4], processed[5]), reverse=True)
+processed = sorted(processed, key=lambda p: (
+    p[0], p[1], p[2], p[3], p[4], p[5]), reverse=True)
 
 res = 0
 for i, row in enumerate(processed):
