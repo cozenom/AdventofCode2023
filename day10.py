@@ -18,7 +18,7 @@ for y in range(len(data)):
             Spos = [y, x]
             break
 y, x = Spos[0], Spos[1]
-
+# All coordinates are [Y,X]
 dirs = {'N': ['|', 'F', '7'], 'S': ['|', 'L', 'J'], 'E': ['-', '7', 'J'], 'W': ['-', 'L', 'F']}
 n = [[y - 1, x], [y + 1, x], [y, x + 1], [y, x - 1]]
 startend = []
@@ -58,7 +58,19 @@ print('Part 1: ', len(visited) // 2)
 # Part 2
 # How many tiles are enclosed by the loop?
 
-print(sorted(visited, key=lambda i: (i[0],i[1])))
+data[Spos[0]] = data[Spos[0]].replace('S', '|')
+inside = ['|', 'J', 'L']
 
+res = 0
+for y, row in enumerate(data):
+    isinside = False
+    for x, val in enumerate(row):
+        if [y, x] not in visited and not isinside: continue
+        if [y, x] in visited and str(val) in inside and not isinside:
+            isinside = True
+        elif [y, x] in visited and str(val) in inside and isinside:
+            isinside = False
+        if [y, x] not in visited and isinside:
+            res += 1
 
-
+print('Part 2: ', res)
