@@ -58,3 +58,7 @@ print('Part 1: ', len(visited) // 2)
 # Part 2
 # How many tiles are enclosed by the loop?
 
+print(sorted(visited, key=lambda i: (i[0],i[1])))
+
+
+
