@@ -54,5 +54,4 @@ for start in starts:
     cycles.append([steps, zpos, visited.index(current)])
 
 import math  # lazy
-
 print('Part 2: ', math.lcm(*[i[1] for i in cycles]))
