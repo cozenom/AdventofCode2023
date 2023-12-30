@@ -1,4 +1,4 @@
-data = open("day1.txt").read().strip()
+data = open("day01.txt").read().strip()
 data = data.split('\n')
 
 nums = [str(i) for i in range(0,10)]

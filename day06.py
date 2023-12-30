@@ -1,4 +1,4 @@
-data = open("day6.txt").read().strip()
+data = open("day06.txt").read().strip()
 # data = "Time:      7  15   30\nDistance:  9  40  200"
 
 data = data.split()

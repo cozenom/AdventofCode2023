@@ -1,4 +1,4 @@
-data = open("day2.txt").read().strip()
+data = open("day02.txt").read().strip()
 data = data.split('\n')
 
 for i, cur in enumerate(data):

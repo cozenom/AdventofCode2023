@@ -1,6 +1,6 @@
 import re
 
-data = open("day8.txt").read().strip()
+data = open("day08.txt").read().strip()
 data = data.split('\n\n')
 instructions = data[0]
 data = sorted([re.findall('\w\w\w', i) for i in data[1].split('\n')])

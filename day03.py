@@ -1,4 +1,4 @@
-data = open("day3.txt").read().strip()
+data = open("day03.txt").read().strip()
 data = data.split('\n')
 
 

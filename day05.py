@@ -1,4 +1,4 @@
-data = open("day5.txt").read().strip()
+data = open("day05.txt").read().strip()
 data = data.split('\n\n')
 
 for i, row in enumerate(data):
