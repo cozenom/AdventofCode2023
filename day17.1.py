@@ -2,6 +2,9 @@ from heapq import heappop, heappush
 data = open("day17.txt").read().strip().split()
 xrange, yrange = range(0, len(data[0])), range(0, len(data))
 
+# Part 1
+# at most three blocks in a single direction
+
 
 def addq(queue, heatloss: int, x: int, y: int, dx: int, dy: int, steps):
     newx, newy = x + dx, y + dy
@@ -30,4 +33,3 @@ while q:
             addq(q, heatloss, x, y, dir[0], dir[1], 1)
 
 print('Part 1: ', res)
-
